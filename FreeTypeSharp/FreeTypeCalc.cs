@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace FreeTypeSharp
 {
@@ -12,20 +12,13 @@ namespace FreeTypeSharp
         /// </summary>
         /// <param name="x">The value to convert.</param>
         /// <returns>The converted value.</returns>
-        public static Int32 Int32ToF26Dot6(Int32 x) { return x * 64; }
+        public static int Int32ToF26Dot6(int x) { return x * 64; }
 
         /// <summary>
         /// Converts a FreeType 26.6 fixed point value to a <see cref="System.Int32"/> value.
         /// </summary>
         /// <param name="x">The value to convert.</param>
         /// <returns>The converted value.</returns>
-        public static Int32 F26Dot6ToInt32(Int32 x) { return x / 64; }
-
-        /// <summary>
-        /// Converts a FreeType 26.6 fixed point value to a <see cref="System.Int32"/> value.
-        /// </summary>
-        /// <param name="x">The value to convert.</param>
-        /// <returns>The converted value.</returns>
-        public static Int32 F26Dot6ToInt32(Int64 x) { return (Int32)(x / 64L); }
+        public static int F26Dot6ToInt32(int x) { return x / 64; }
     }
 }
