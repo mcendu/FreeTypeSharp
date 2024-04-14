@@ -1,7 +1,7 @@
 # FreeTypeSharp
 [![Nuget](https://img.shields.io/nuget/v/FreeTypeSharp)](https://www.nuget.org/packages/FreeTypeSharp/)
 
-A modern managed FreeType2 library based on the freetype2 code in the [ultraviolet](https://github.com/tlgkccampbell/ultraviolet/tree/develop/Source/Ultraviolet.FreeType2) project.
+A modern managed FreeType2 library which has source code generated from the original C headers.
 
 FreeTypeSharp v2+ provides cross-platform bindings for:
 
@@ -30,9 +30,32 @@ UWP target is in a seperate package
 
 # Usage
 
-There's no magic(abstraction) based on the original C freetype API. All managed API are almost identical with the original freetype C API. Import the namespaces like `using FreeTypeSharp.Native;` and `using static FreeTypeSharp.Native.FT;`, then you can play the font rendering as what you do in C.
+There's no magic(abstraction) based on the original C freetype API. All managed API are almost identical with the original freetype C API.  
+Import the namespaces like `using FreeTypeSharp;` and `using static FreeTypeSharp.FT;`, then you can play the font rendering as what you do in C.
+
+Here are few sample code:
+```csharp
+using static FreeTypeSharp.FT;
+using static FreeTypeSharp.FT_LOAD;
+using static FreeTypeSharp.FT_Render_Mode_;
+
+FT_LibraryRec_* lib;
+FT_FaceRec_* face;
+var error = FT_Init_FreeType(&lib);
+
+error = FT_New_Face(lib, (byte*)Marshal.StringToHGlobalAnsi("some_font_name.ttf"), 0, &face);
+error = FT_Set_Char_Size(face, 0, 16 * 64, 300, 300);
+var glyphIndex = FT_Get_Char_Index(face, 'F');
+error = FT_Load_Glyph(face, glyphIndex, FT_LOAD_DEFAULT);
+error = FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
+...
+```
+
+More FreeType docs: https://freetype.org/freetype2/docs/documentation.html
 
 # Credits
 
 - https://github.com/tlgkccampbell/ultraviolet
 - https://github.com/Robmaister/SharpFont/
+
+Special thanks to https://github.com/tonisimakov99/FreeTypeBinding for source code generator.
