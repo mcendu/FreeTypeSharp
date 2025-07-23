@@ -59,15 +59,16 @@ namespace FreeTypeSharp
                 throw new PlatformNotSupportedException();
 
             string rootDirectory = AppContext.BaseDirectory;
+            string cpu = RuntimeInformation.ProcessArchitecture.ToString().ToLowerInvariant();
 
             if (isWindows)
             {
-                string arch = Environment.Is64BitProcess ? "win-x64" : "win-x86";
+                string arch = "win-" + cpu;
                 var searchPaths = new[]
                 {
                     // This is where native libraries in our nupkg should end up
                     Path.Combine(rootDirectory, "runtimes", arch, "native", ActualLibraryName),
-                    Path.Combine(rootDirectory, Environment.Is64BitProcess ? "x64" : "x86", ActualLibraryName),
+                    Path.Combine(rootDirectory, cpu, ActualLibraryName),
                     Path.Combine(rootDirectory, ActualLibraryName)
                 };
 
@@ -92,7 +93,7 @@ namespace FreeTypeSharp
 
             if (isLinux || isMacOS)
             {
-                string arch = isMacOS ? "osx" : "linux-" + (Environment.Is64BitProcess ? "x64" : "x86");
+                string arch = isMacOS ? "osx" : "linux-" + cpu;
 
                 var searchPaths = new[]
                 {
