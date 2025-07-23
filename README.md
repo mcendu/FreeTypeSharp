@@ -10,7 +10,7 @@ FreeTypeSharp v2+ provides cross-platform bindings for:
 - net8.0-ios
 - net8.0-tvos
 - netstandard2.0
-- uap10.0 (UWP)
+- net9.0 (UWP)
 
 [README](https://github.com/ryancheung/FreeTypeSharp/tree/v1) for release v1.X
 
