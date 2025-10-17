@@ -12,17 +12,11 @@ FreeTypeSharp v2+ provides cross-platform bindings for:
 
 ## FreeType Wrapped
 
-FreeType 2.13.2
-
-Native binaries are built by the CI in https://github.com/ryancheung/freetype/tree/csharp-patch
+FreeType 2.14.1
 
 # Installation
 
-`dotnet add package FreeTypeSharp`
-
-UWP target is in a seperate package
-
-`dotnet add package FreeTypeSharp.UWP`
+`dotnet add package McEndu.FreeTypeSharp`
 
 # Usage
 
