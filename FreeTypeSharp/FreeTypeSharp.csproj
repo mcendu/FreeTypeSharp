@@ -61,13 +61,6 @@
       <CopyToOutputDirectory Condition="'$(TargetFramework)' == 'net8.0'">PreserveNewest</CopyToOutputDirectory>
     </None>
 
-    <None Include="..\runtimes\FreeType2\win-arm64\freetype.dll">
-      <Pack>true</Pack>
-      <PackagePath>runtimes\win-arm64\native\</PackagePath>
-      <Link>runtimes\win-arm64\native\freetype.dll</Link>
-      <CopyToOutputDirectory Condition="'$(TargetFramework)' == 'net8.0'">PreserveNewest</CopyToOutputDirectory>
-    </None>
-
     <None Include="..\runtimes\FreeType2\linux-x64\libfreetype.so">
       <Pack>true</Pack>
       <PackagePath>runtimes\linux-x64\native\</PackagePath>
@@ -75,10 +68,10 @@
       <CopyToOutputDirectory Condition="'$(TargetFramework)' == 'net8.0'">PreserveNewest</CopyToOutputDirectory>
     </None>
 
-    <None Include="..\runtimes\FreeType2\osx\libfreetype.dylib">
+    <None Include="..\runtimes\FreeType2\linux-x86\libfreetype.so">
       <Pack>true</Pack>
-      <PackagePath>runtimes\osx\native\</PackagePath>
-      <Link>runtimes\osx\native\libfreetype.dylib</Link>
+      <PackagePath>runtimes\linux-x86\native\</PackagePath>
+      <Link>runtimes\linux-x86\native\libfreetype.so</Link>
       <CopyToOutputDirectory Condition="'$(TargetFramework)' == 'net8.0'">PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
