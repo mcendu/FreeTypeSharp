@@ -1,3 +1,5 @@
+using System;
+
 namespace FreeTypeSharp
 {
     public static partial class FT
@@ -52,5 +54,24 @@ namespace FreeTypeSharp
         public const ushort FT_FSTYPE_EDITABLE_EMBEDDING = 0x0008;
         public const ushort FT_FSTYPE_NO_SUBSETTING = 0x0100;
         public const ushort FT_FSTYPE_BITMAP_EMBEDDING_ONLY = 0x0200;
+
+        // SFNT platform_id
+        public const ushort TT_PLATFORM_APPLE_UNICODE = 0;
+        public const ushort TT_PLATFORM_MACINTOSH = 1;
+        [Obsolete("deprecated")]
+        public const ushort TT_PLATFORM_ISO = 2;
+        public const ushort TT_PLATFORM_MICROSOFT = 3;
+        public const ushort TT_PLATFORM_CUSTOM = 4;
+        public const ushort TT_PLATFORM_ADOBE = 7;
+
+        // SFNT Microsoft encoding_id
+        public const ushort TT_MS_ID_SYMBOL_CS = 0;
+        public const ushort TT_MS_ID_UNICODE_CS = 1;
+        public const ushort TT_MS_ID_SJIS = 2;
+        public const ushort TT_MS_ID_PRC = 3;
+        public const ushort TT_MS_ID_BIG_5 = 4;
+        public const ushort TT_MS_ID_WANSUNG = 5;
+        public const ushort TT_MS_ID_JOHAB = 6;
+        public const ushort TT_MS_ID_UCS_4 = 10;
     }
 }
