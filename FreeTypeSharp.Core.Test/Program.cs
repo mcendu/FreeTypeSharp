@@ -7,9 +7,11 @@ namespace FreeTypeSharp.Core.Test
     {
         unsafe static void Main(string[] args)
         {
-            var library = new FreeTypeLibrary();
+            FT_LibraryRec_* library;
+
+            var error = FT_Init_FreeType(&library);
             int major, minor, patch;
-            FT_Library_Version(library.Native, &major, &minor, &patch);
+            FT_Library_Version(library, &major, &minor, &patch);
             Console.WriteLine($"FreeType version: {major}.{minor}.{patch}");
         }
     }
