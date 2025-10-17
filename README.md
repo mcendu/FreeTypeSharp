@@ -5,12 +5,8 @@ A modern managed FreeType2 library which has source code generated from the orig
 
 FreeTypeSharp v2+ provides cross-platform bindings for:
 
-- netcoreapp3.1;net8.0 (Windows, Linux, macOS)
-- net8.0-android
-- net8.0-ios
-- net8.0-tvos
-- netstandard2.0
-- net9.0 (UWP)
+- .NET 8 (Most platforms)
+- .NET 9 (UWP)
 
 [README](https://github.com/ryancheung/FreeTypeSharp/tree/v1) for release v1.X
 
