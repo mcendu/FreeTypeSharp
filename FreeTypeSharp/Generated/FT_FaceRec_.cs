@@ -6,11 +6,11 @@ namespace FreeTypeSharp
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct FT_FaceRec_
     {
-        public IntPtr num_faces;
-        public IntPtr face_index;
-        public IntPtr face_flags;
-        public IntPtr style_flags;
-        public IntPtr num_glyphs;
+        public CLong num_faces;
+        public CLong face_index;
+        public CLong face_flags;
+        public CLong style_flags;
+        public CLong num_glyphs;
         public byte* family_name;
         public byte* style_name;
         public int num_fixed_sizes;

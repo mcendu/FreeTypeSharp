@@ -1,6 +1,6 @@
 namespace FreeTypeSharp
 {
-    public enum FT_Glyph_Format_ : int
+    public enum FT_Glyph_Format_ : uint
     {
         FT_GLYPH_FORMAT_NONE = 0,
         FT_GLYPH_FORMAT_COMPOSITE = 1668246896,

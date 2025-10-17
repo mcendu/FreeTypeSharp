@@ -7,32 +7,43 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using CppSharp.AST.Extensions;
 
 namespace FreeTypeSharp.Generator
 {
     public class Program
     {
-        private static Dictionary<PrimitiveType, string> primitiveTypes = new Dictionary<PrimitiveType, string>()
+        private static IReadOnlyDictionary<PrimitiveType, string> primitiveTypes = new Dictionary<PrimitiveType, string>()
         {
-            { PrimitiveType.Int,"int"},
-            { PrimitiveType.Long,"IntPtr"},
-            { PrimitiveType.Float,"float"},
-            { PrimitiveType.Double,"double"},
-            { PrimitiveType.Bool,"bool"},
-            { PrimitiveType.String,"string"},
-            { PrimitiveType.ULong,"UIntPtr" },
-            { PrimitiveType.UInt,"uint" },
-            { PrimitiveType.Void,"void" },
-            { PrimitiveType.UChar,"byte" },
-            { PrimitiveType.UShort,"ushort" },
-            { PrimitiveType.Short,"short" },
-            { PrimitiveType.SChar,"sbyte" },
-            { PrimitiveType.Char,"byte" },
-            { PrimitiveType.ULongLong,"ulong" },
-            { PrimitiveType.LongLong,"long" }
+            { PrimitiveType.Void, "void" },
+            { PrimitiveType.Bool, "bool"},
+            { PrimitiveType.Char, "byte" },
+            { PrimitiveType.SChar, "sbyte" },
+            { PrimitiveType.Short, "short" },
+            { PrimitiveType.Int, "int" },
+            { PrimitiveType.Long, "CLong" },
+            { PrimitiveType.LongLong, "long" },
+            { PrimitiveType.UChar, "byte" },
+            { PrimitiveType.UShort, "ushort" },
+            { PrimitiveType.UInt, "uint" },
+            { PrimitiveType.ULong, "CULong" },
+            { PrimitiveType.ULongLong, "ulong" },
+            { PrimitiveType.Float, "float" },
+            { PrimitiveType.Double, "double" },
+            { PrimitiveType.String, "string" },
         };
 
-        private static Dictionary<string, Class> classes= new Dictionary<string, Class>();
+        private static IReadOnlyDictionary<CppSharp.Parser.ParserDiagnosticLevel, string> diagnosticLevels
+            = new Dictionary<CppSharp.Parser.ParserDiagnosticLevel, string>()
+        {
+            { CppSharp.Parser.ParserDiagnosticLevel.Ignored, "ignored" },
+            { CppSharp.Parser.ParserDiagnosticLevel.Note, "note" },
+            { CppSharp.Parser.ParserDiagnosticLevel.Warning, "warning" },
+            { CppSharp.Parser.ParserDiagnosticLevel.Error, "error" },
+            { CppSharp.Parser.ParserDiagnosticLevel.Fatal, "fatal error" },
+        };
+
+        private static Dictionary<string, Class> classes = new Dictionary<string, Class>();
         private static Dictionary<string, Enumeration> enumerations = new Dictionary<string, Enumeration>();
         private static Dictionary<string, BuiltinType> enumerationBaseTypeOverrides = new Dictionary<string, BuiltinType>();
         private static Dictionary<string, Enumeration> predefinedEnumerations = new Dictionary<string, Enumeration>();
@@ -79,7 +90,7 @@ namespace FreeTypeSharp.Generator
 
             var parserOptions = new CppSharp.Parser.ParserOptions();
             parserOptions.AddIncludeDirs(IncludePath);
-            parserOptions.Setup(TargetPlatform.Windows);
+            parserOptions.Setup(TargetPlatform.Linux);
             parserOptions.LanguageVersion = CppSharp.Parser.LanguageVersion.C99_GNU;
 
             var parseResult = ClangParser.ParseSourceFiles(
@@ -94,7 +105,13 @@ namespace FreeTypeSharp.Generator
             for (uint i = 0; i != parseResult.DiagnosticsCount; i++)
             {
                 var diagnostic = parseResult.GetDiagnostics(i);
+                if (diagnostic.Level == CppSharp.Parser.ParserDiagnosticLevel.Ignored)
+                    continue;
+
+                System.Console.Error.WriteLine(@$"{diagnostic.FileName}:{diagnostic.LineNumber}:{diagnostic.ColumnNumber}: {diagnosticLevels[diagnostic.Level]}: {diagnostic.Message}");
             }
+            System.Console.Error.Flush();
+
             var context = ClangParser.ConvertASTContext(parserOptions.ASTContext);
 
             InitTypes(context);
@@ -118,12 +135,10 @@ namespace FreeTypeSharp.Generator
             var attributesArgsList = new SeparatedSyntaxList<AttributeArgumentSyntax>();
             attributesArgsList = attributesArgsList.Add(
                 SyntaxFactory.AttributeArgument(SyntaxFactory.ParseExpression("LibName")));
-            attributesArgsList = attributesArgsList.Add(
-                SyntaxFactory.AttributeArgument(SyntaxFactory.ParseExpression("CallingConvention = CallingConvention.Cdecl")));
 
 
             var dllImportAttribute = SyntaxFactory.Attribute(
-                SyntaxFactory.IdentifierName("DllImport"),
+                SyntaxFactory.IdentifierName("LibraryImport"),
                 SyntaxFactory.AttributeArgumentList(attributesArgsList)
                 );
 
@@ -140,7 +155,7 @@ namespace FreeTypeSharp.Generator
                         var modifiers = new SyntaxTokenList();
                         modifiers = modifiers.Add(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
                         modifiers = modifiers.Add(SyntaxFactory.Token(SyntaxKind.StaticKeyword));
-                        modifiers = modifiers.Add(SyntaxFactory.Token(SyntaxKind.ExternKeyword));
+                        modifiers = modifiers.Add(SyntaxFactory.Token(SyntaxKind.PartialKeyword));
 
                         var attributes = new SyntaxList<AttributeListSyntax>();
                         attributes = attributes.Add(SyntaxFactory.AttributeList(new SeparatedSyntaxList<AttributeSyntax>().Add(dllImportAttribute)));
@@ -184,21 +199,15 @@ namespace FreeTypeSharp.Generator
                 fileWriter.Write(rootSyntax.NormalizeWhitespace().ToFullString());
             }
 
-            System.Console.WriteLine("All done, code are saved to {0}", OutputDir);
+            System.Console.Error.WriteLine("All done, code are saved to {0}", OutputDir);
 
             return 0;
         }
 
         private static List<string> registeredTypes = new List<string>();
-        private static TypeSyntax GetTypeSyntax(ASTContext context, Type type)
+        private static TypeSyntax GetTypeSyntax(ASTContext context, Type type, string parentType = null, string parentField = null)
         {
-            var typedefType = type as TypedefType;
-            var pointerType = type as PointerType;
-            var builtInType = type as BuiltinType;
-            var tagType = type as TagType;
-            var functionType = type as FunctionType;
-
-            if (typedefType != null)
+            if (type is TypedefType typedefType)
             {
                 if (typedefType.Declaration.Name == "FT_Error")
                     return GetTypeSyntax(context, new TagType()
@@ -211,21 +220,34 @@ namespace FreeTypeSharp.Generator
                 return GetTypeSyntax(context, typedefType.Declaration.Type);
             }
 
-            if (pointerType != null)
+            if (type is PointerType pointerType)
                 return SyntaxFactory.PointerType(GetTypeSyntax(context, pointerType.Pointee));
 
-            if (builtInType != null)
+            if (type is BuiltinType builtInType)
                 return SyntaxFactory.ParseTypeName(primitiveTypes[builtInType.Type]);
 
-            if (tagType != null)
+            if (type is TagType tagType)
             {
-                if (!registeredTypes.Contains(tagType.Declaration.Name))
-                    RegisterType(context, tagType.Declaration.Name);
+                string name = tagType.Declaration.Name;
+                if (name == string.Empty)
+                {
+                    // synthesize a name for the anonymous class
+                    name = $@"Anonymous__{parentType}_{parentField}";
 
-                return SyntaxFactory.ParseTypeName(tagType.Declaration.Name);
+                    if (tagType.Declaration is Class _class)
+                    {
+                        _class.Name = name;
+                        classes.Add(name, _class);
+                    }
+                }
+
+                if (!registeredTypes.Contains(name))
+                    RegisterType(context, name);
+
+                return SyntaxFactory.ParseTypeName(name);
             }
 
-            if (functionType != null)
+            if (type is FunctionType functionType)
             {
                 return SyntaxFactory.ParseTypeName("void"); // use void* for function pointers
 
@@ -273,7 +295,7 @@ namespace FreeTypeSharp.Generator
                     }
                     else
                     {
-                        if(enumerationBaseTypeOverrides.ContainsKey(_enum.Name))
+                        if (enumerationBaseTypeOverrides.ContainsKey(_enum.Name))
                         {
                             _enum.Type = enumerationBaseTypeOverrides[_enum.Name];
                         }
@@ -336,6 +358,7 @@ namespace FreeTypeSharp.Generator
             if (classes.ContainsKey(typeName))
             {
                 var _class = classes[typeName];
+
                 using (var fileWriter = new StreamWriter(File.OpenWrite($"{OutputDir}/{_class.Name}.cs")))
                 {
                     var namespaceNameSyntax = SyntaxFactory.IdentifierName(OutNamespace);
@@ -346,28 +369,32 @@ namespace FreeTypeSharp.Generator
                         new SyntaxList<UsingDirectiveSyntax>().Add(SyntaxFactory.UsingDirective(SyntaxFactory.IdentifierName("System.Runtime.InteropServices")))
                             .Add(SyntaxFactory.UsingDirective(SyntaxFactory.IdentifierName("System"))),
                         default);
+                    var layoutKind = _class.IsUnion ? "LayoutKind.Explicit" : "LayoutKind.Sequential" ;
                     var attribute = SyntaxFactory.Attribute(
                                   SyntaxFactory.IdentifierName("StructLayout"),
                                   SyntaxFactory.AttributeArgumentList(
                                       new SeparatedSyntaxList<AttributeArgumentSyntax>().Add(
-                                          SyntaxFactory.AttributeArgument(SyntaxFactory.ParseExpression("LayoutKind.Sequential")))));
+                                          SyntaxFactory.AttributeArgument(SyntaxFactory.ParseExpression(layoutKind)))));
+                    var unionFieldAttribute = SyntaxFactory.Attribute(
+                        SyntaxFactory.IdentifierName("FieldOffset"),
+                        SyntaxFactory.AttributeArgumentList(
+                            new SeparatedSyntaxList<AttributeArgumentSyntax>().Add(
+                                SyntaxFactory.AttributeArgument(
+                                    SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(0))
+                                )
+                            )
+                        )
+                    );
 
                     var _struct = SyntaxFactory.StructDeclaration(_class.Name);
                     _struct = _struct.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
                     _struct = _struct.AddModifiers(SyntaxFactory.Token(SyntaxKind.UnsafeKeyword));
                     _struct = _struct.AddAttributeLists(SyntaxFactory.AttributeList(new SeparatedSyntaxList<AttributeSyntax>().Add(attribute)));
+
                     foreach (var field in _class.Fields)
                     {
-                        switch (typeName)
-                        {
-                            // Skip structs having unsupported fields, like union and function pointers
-                            case "FT_COLR_Paint_":
-                                continue;
-                            default:
-                                break;
-                        }
-
                         TypeSyntax typeSyntax;
+
                         if (typeOverrides.ContainsKey(field.Name))
                         {
                             typeSyntax = GetTypeSyntax(context, new TagType()
@@ -377,11 +404,11 @@ namespace FreeTypeSharp.Generator
                             // These fields types should not be override
                             if (field.Name == "face_flags" || field.Name == "style_flags")
                             {
-                                typeSyntax = GetTypeSyntax(context, field.Type);
+                                typeSyntax = GetTypeSyntax(context, field.Type, typeName, field.Name);
                             }
                         }
                         else
-                            typeSyntax = GetTypeSyntax(context, field.Type);
+                            typeSyntax = GetTypeSyntax(context, field.Type, typeName, field.Name);
                         var variablesList = new SeparatedSyntaxList<VariableDeclaratorSyntax>();
                         var name = field.Name;
                         if (name == "internal" || name == "base" || name == "params")
@@ -390,6 +417,12 @@ namespace FreeTypeSharp.Generator
                         var fieldDeclaration = SyntaxFactory.FieldDeclaration(SyntaxFactory.VariableDeclaration(typeSyntax, variablesList));
 
                         fieldDeclaration = fieldDeclaration.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+                        if (_class.IsUnion)
+                        {
+                            fieldDeclaration = fieldDeclaration.AddAttributeLists(SyntaxFactory.AttributeList(
+                                new SeparatedSyntaxList<AttributeSyntax>().Add(unionFieldAttribute)
+                            ));
+                        }
                         _struct = _struct.AddMembers(fieldDeclaration);
                     }
 
@@ -460,7 +493,7 @@ namespace FreeTypeSharp.Generator
             }
             else
             {
-                throw new System.Exception("not supproted type");
+                throw new System.Exception("not supported type");
             }
         }
     }

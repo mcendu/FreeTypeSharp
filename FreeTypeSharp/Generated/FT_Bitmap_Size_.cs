@@ -8,8 +8,8 @@ namespace FreeTypeSharp
     {
         public short height;
         public short width;
-        public IntPtr size;
-        public IntPtr x_ppem;
-        public IntPtr y_ppem;
+        public CLong size;
+        public CLong x_ppem;
+        public CLong y_ppem;
     }
 }

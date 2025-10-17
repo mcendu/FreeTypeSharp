@@ -3,10 +3,12 @@ namespace FreeTypeSharp
     using System.Runtime.InteropServices;
     using System;
 
-    [StructLayout(LayoutKind.Sequential)]
+    [StructLayout(LayoutKind.Explicit)]
     public unsafe struct FT_StreamDesc_
     {
-        public IntPtr value;
+        [FieldOffset(0)]
+        public CLong value;
+        [FieldOffset(0)]
         public void* pointer;
     }
 }

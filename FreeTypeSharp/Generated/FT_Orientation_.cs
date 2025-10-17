@@ -1,6 +1,6 @@
 namespace FreeTypeSharp
 {
-    public enum FT_Orientation_ : int
+    public enum FT_Orientation_ : uint
     {
         FT_ORIENTATION_TRUETYPE = 0,
         FT_ORIENTATION_POSTSCRIPT = 1,

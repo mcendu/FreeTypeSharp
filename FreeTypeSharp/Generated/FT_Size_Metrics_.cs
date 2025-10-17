@@ -8,11 +8,11 @@ namespace FreeTypeSharp
     {
         public ushort x_ppem;
         public ushort y_ppem;
-        public IntPtr x_scale;
-        public IntPtr y_scale;
-        public IntPtr ascender;
-        public IntPtr descender;
-        public IntPtr height;
-        public IntPtr max_advance;
+        public CLong x_scale;
+        public CLong y_scale;
+        public CLong ascender;
+        public CLong descender;
+        public CLong height;
+        public CLong max_advance;
     }
 }

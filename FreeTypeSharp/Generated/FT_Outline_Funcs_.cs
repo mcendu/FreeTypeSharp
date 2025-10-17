@@ -11,6 +11,6 @@ namespace FreeTypeSharp
         public void* conic_to;
         public void* cubic_to;
         public int shift;
-        public IntPtr delta;
+        public CLong delta;
     }
 }

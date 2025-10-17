@@ -1,6 +1,6 @@
 namespace FreeTypeSharp
 {
-    public enum FT_Render_Mode_ : int
+    public enum FT_Render_Mode_ : uint
     {
         FT_RENDER_MODE_NORMAL = 0,
         FT_RENDER_MODE_LIGHT = 1,

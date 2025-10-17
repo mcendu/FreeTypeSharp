@@ -6,9 +6,9 @@ namespace FreeTypeSharp
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct FT_Matrix_
     {
-        public IntPtr xx;
-        public IntPtr xy;
-        public IntPtr yx;
-        public IntPtr yy;
+        public CLong xx;
+        public CLong xy;
+        public CLong yx;
+        public CLong yy;
     }
 }

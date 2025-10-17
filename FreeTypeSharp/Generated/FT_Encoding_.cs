@@ -1,6 +1,6 @@
 namespace FreeTypeSharp
 {
-    public enum FT_Encoding_ : int
+    public enum FT_Encoding_ : uint
     {
         FT_ENCODING_NONE = 0,
         FT_ENCODING_MS_SYMBOL = 1937337698,

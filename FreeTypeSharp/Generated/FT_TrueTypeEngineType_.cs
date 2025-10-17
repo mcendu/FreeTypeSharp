@@ -1,6 +1,6 @@
 namespace FreeTypeSharp
 {
-    public enum FT_TrueTypeEngineType_ : int
+    public enum FT_TrueTypeEngineType_ : uint
     {
         FT_TRUETYPE_ENGINE_TYPE_NONE = 0,
         FT_TRUETYPE_ENGINE_TYPE_UNPATENTED = 1,

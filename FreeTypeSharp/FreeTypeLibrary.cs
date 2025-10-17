@@ -23,7 +23,7 @@ namespace FreeTypeSharp
         public FreeTypeLibrary()
         {
             FT_LibraryRec_* lib;
-            var err = FT.FT_Init_FreeType(&lib);
+            var err = FT.FTInitFreeType(&lib);
             if (err != FT_Error.FT_Err_Ok)
                 throw new FreeTypeException(err);
 

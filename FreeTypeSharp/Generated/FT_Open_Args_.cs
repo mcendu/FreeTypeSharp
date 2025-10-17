@@ -8,7 +8,7 @@ namespace FreeTypeSharp
     {
         public uint flags;
         public byte* memory_base;
-        public IntPtr memory_size;
+        public CLong memory_size;
         public byte* pathname;
         public FT_StreamRec_* stream;
         public FT_ModuleRec_* driver;

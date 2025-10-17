@@ -1,6 +1,6 @@
 namespace FreeTypeSharp
 {
-    public enum FT_Size_Request_Type_ : int
+    public enum FT_Size_Request_Type_ : uint
     {
         FT_SIZE_REQUEST_TYPE_NOMINAL = 0,
         FT_SIZE_REQUEST_TYPE_REAL_DIM = 1,

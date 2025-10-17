@@ -7,8 +7,8 @@ namespace FreeTypeSharp
     public unsafe struct FT_Size_RequestRec_
     {
         public FT_Size_Request_Type_ type;
-        public IntPtr width;
-        public IntPtr height;
+        public CLong width;
+        public CLong height;
         public uint horiResolution;
         public uint vertResolution;
     }

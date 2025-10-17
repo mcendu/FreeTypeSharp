@@ -7,8 +7,8 @@ namespace FreeTypeSharp
     public unsafe struct FT_StreamRec_
     {
         public byte* _base;
-        public UIntPtr size;
-        public UIntPtr pos;
+        public CULong size;
+        public CULong pos;
         public FT_StreamDesc_ descriptor;
         public FT_StreamDesc_ pathname;
         public void* read;

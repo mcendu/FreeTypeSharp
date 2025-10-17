@@ -1,6 +1,6 @@
 namespace FreeTypeSharp
 {
-    public enum FT_Kerning_Mode_ : int
+    public enum FT_Kerning_Mode_ : uint
     {
         FT_KERNING_DEFAULT = 0,
         FT_KERNING_UNFITTED = 1,

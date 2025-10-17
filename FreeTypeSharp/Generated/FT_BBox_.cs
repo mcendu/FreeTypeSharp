@@ -6,9 +6,9 @@ namespace FreeTypeSharp
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct FT_BBox_
     {
-        public IntPtr xMin;
-        public IntPtr yMin;
-        public IntPtr xMax;
-        public IntPtr yMax;
+        public CLong xMin;
+        public CLong yMin;
+        public CLong xMax;
+        public CLong yMax;
     }
 }

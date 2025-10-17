@@ -1,6 +1,6 @@
 namespace FreeTypeSharp
 {
-    public enum FT_Error : int
+    public enum FT_Error : uint
     {
         FT_Err_Ok = 0,
         FT_Err_Cannot_Open_Resource = 1,
