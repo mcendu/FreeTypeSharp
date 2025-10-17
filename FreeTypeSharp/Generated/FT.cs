@@ -315,5 +315,41 @@ namespace FreeTypeSharp
         public static partial FT_Error FT_Get_Advance(FT_FaceRec_* face, uint gindex, FT_LOAD load_flags, CLong* padvance);
         [LibraryImport(LibName)]
         public static partial FT_Error FT_Get_Advances(FT_FaceRec_* face, uint start, uint count, FT_LOAD load_flags, CLong* padvances);
+        [LibraryImport(LibName)]
+        public static partial FT_Error FT_Get_Multi_Master(FT_FaceRec_* face, FT_Multi_Master_* amaster);
+        [LibraryImport(LibName)]
+        public static partial FT_Error FT_Get_MM_Var(FT_FaceRec_* face, FT_MM_Var_** amaster);
+        [LibraryImport(LibName)]
+        public static partial FT_Error FT_Done_MM_Var(FT_LibraryRec_* library, FT_MM_Var_* amaster);
+        [LibraryImport(LibName)]
+        public static partial FT_Error FT_Set_MM_Design_Coordinates(FT_FaceRec_* face, uint num_coords, CLong* coords);
+        [LibraryImport(LibName)]
+        public static partial FT_Error FT_Set_Var_Design_Coordinates(FT_FaceRec_* face, uint num_coords, CLong* coords);
+        [LibraryImport(LibName)]
+        public static partial FT_Error FT_Get_Var_Design_Coordinates(FT_FaceRec_* face, uint num_coords, CLong* coords);
+        [LibraryImport(LibName)]
+        public static partial FT_Error FT_Set_MM_Blend_Coordinates(FT_FaceRec_* face, uint num_coords, CLong* coords);
+        [LibraryImport(LibName)]
+        public static partial FT_Error FT_Get_MM_Blend_Coordinates(FT_FaceRec_* face, uint num_coords, CLong* coords);
+        [LibraryImport(LibName)]
+        public static partial FT_Error FT_Set_Var_Blend_Coordinates(FT_FaceRec_* face, uint num_coords, CLong* coords);
+        [LibraryImport(LibName)]
+        public static partial FT_Error FT_Get_Var_Blend_Coordinates(FT_FaceRec_* face, uint num_coords, CLong* coords);
+        [LibraryImport(LibName)]
+        public static partial FT_Error FT_Set_MM_WeightVector(FT_FaceRec_* face, uint len, CLong* weightvector);
+        [LibraryImport(LibName)]
+        public static partial FT_Error FT_Get_MM_WeightVector(FT_FaceRec_* face, uint* len, CLong* weightvector);
+        [LibraryImport(LibName)]
+        public static partial FT_Error FT_Get_Var_Axis_Flags(FT_MM_Var_* master, uint axis_index, uint* flags);
+        [LibraryImport(LibName)]
+        public static partial FT_Error FT_Set_Named_Instance(FT_FaceRec_* face, uint instance_index);
+        [LibraryImport(LibName)]
+        public static partial FT_Error FT_Get_Default_Named_Instance(FT_FaceRec_* face, uint* instance_index);
+        [LibraryImport(LibName)]
+        public static partial uint FT_Get_Sfnt_Name_Count(FT_FaceRec_* face);
+        [LibraryImport(LibName)]
+        public static partial FT_Error FT_Get_Sfnt_Name(FT_FaceRec_* face, uint idx, FT_SfntName_* aname);
+        [LibraryImport(LibName)]
+        public static partial FT_Error FT_Get_Sfnt_LangTag(FT_FaceRec_* face, uint langID, FT_SfntLangTag_* alangTag);
     }
 }

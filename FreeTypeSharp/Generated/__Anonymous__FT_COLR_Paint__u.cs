@@ -4,7 +4,7 @@ namespace FreeTypeSharp
     using System;
 
     [StructLayout(LayoutKind.Explicit)]
-    public unsafe struct Anonymous__FT_COLR_Paint__u
+    public unsafe struct __Anonymous__FT_COLR_Paint__u
     {
         [FieldOffset(0)]
         public FT_PaintColrLayers_ colr_layers;

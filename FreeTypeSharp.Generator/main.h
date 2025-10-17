@@ -12,3 +12,5 @@
 #include FT_TRIGONOMETRY_H
 #include FT_GASP_H
 #include FT_ADVANCES_H
+#include FT_MULTIPLE_MASTERS_H
+#include FT_SFNT_NAMES_H

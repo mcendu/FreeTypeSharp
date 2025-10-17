@@ -4,9 +4,7 @@ namespace FreeTypeSharp
     using System;
 
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct FT_COLR_Paint_
+    public unsafe struct FT_Multi_Master_
     {
-        public FT_PaintFormat_ format;
-        public __Anonymous__FT_COLR_Paint__u u;
     }
 }

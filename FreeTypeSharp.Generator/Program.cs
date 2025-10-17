@@ -231,8 +231,8 @@ namespace FreeTypeSharp.Generator
                 string name = tagType.Declaration.Name;
                 if (name == string.Empty)
                 {
-                    // synthesize a name for the anonymous class
-                    name = $@"Anonymous__{parentType}_{parentField}";
+                    // synthesize a name for the anonymous class for addition
+                    name = $@"__Anonymous__{parentType}_{parentField}";
 
                     if (tagType.Declaration is Class _class)
                     {
@@ -260,6 +260,17 @@ namespace FreeTypeSharp.Generator
                 //    SyntaxFactory.FunctionPointerCallingConvention(SyntaxFactory.Token(SyntaxKind.UnmanagedKeyword)),
                 //    SyntaxFactory.FunctionPointerParameterList(parameters)
                 //    );
+            }
+
+            if (type is ArrayType arrayType)
+            {
+                if (arrayType.SizeType == ArrayType.ArraySize.Constant)
+                {
+                    // the type prefix cannot say everything here due to syntax oddities
+                    return GetTypeSyntax(context, arrayType.Type, parentType, parentField);
+                }
+                // flexible array member does not hold space, but still affects struct size and alignment.
+                // see ISO/IEC 9899:2024 6.7.2.1.20 (p.103). we are not supporting this.
             }
 
             throw new System.Exception("type not handled");
@@ -369,7 +380,7 @@ namespace FreeTypeSharp.Generator
                         new SyntaxList<UsingDirectiveSyntax>().Add(SyntaxFactory.UsingDirective(SyntaxFactory.IdentifierName("System.Runtime.InteropServices")))
                             .Add(SyntaxFactory.UsingDirective(SyntaxFactory.IdentifierName("System"))),
                         default);
-                    var layoutKind = _class.IsUnion ? "LayoutKind.Explicit" : "LayoutKind.Sequential" ;
+                    var layoutKind = _class.IsUnion ? "LayoutKind.Explicit" : "LayoutKind.Sequential";
                     var attribute = SyntaxFactory.Attribute(
                                   SyntaxFactory.IdentifierName("StructLayout"),
                                   SyntaxFactory.AttributeArgumentList(
@@ -393,6 +404,14 @@ namespace FreeTypeSharp.Generator
 
                     foreach (var field in _class.Fields)
                     {
+                        // skip structs with peculiar properties
+                        switch (typeName)
+                        {
+                            // FT_Multi_Master_: fixed-size array of compound type
+                            case "FT_Multi_Master_":
+                                continue;
+                        }
+
                         TypeSyntax typeSyntax;
 
                         if (typeOverrides.ContainsKey(field.Name))
@@ -409,14 +428,41 @@ namespace FreeTypeSharp.Generator
                         }
                         else
                             typeSyntax = GetTypeSyntax(context, field.Type, typeName, field.Name);
+
                         var variablesList = new SeparatedSyntaxList<VariableDeclaratorSyntax>();
                         var name = field.Name;
-                        if (name == "internal" || name == "base" || name == "params")
+                        if (name == "internal" || name == "base" || name == "params" || name == "string")
                             name = "_" + name;
-                        variablesList = variablesList.Add(SyntaxFactory.VariableDeclarator(name));
-                        var fieldDeclaration = SyntaxFactory.FieldDeclaration(SyntaxFactory.VariableDeclaration(typeSyntax, variablesList));
+                        FieldDeclarationSyntax fieldDeclaration;
 
-                        fieldDeclaration = fieldDeclaration.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+                        if (field.Type is ArrayType arrayType && arrayType.SizeType == ArrayType.ArraySize.Constant)
+                        {
+                            var variableDeclarator = SyntaxFactory.VariableDeclarator(
+                                SyntaxFactory.Identifier(name),
+                                SyntaxFactory.BracketedArgumentList(
+                                    new SeparatedSyntaxList<ArgumentSyntax>().Add(
+                                        SyntaxFactory.Argument(
+                                            SyntaxFactory.LiteralExpression(
+                                                SyntaxKind.NumericLiteralExpression,
+                                                SyntaxFactory.Literal((int)arrayType.Size)
+                                            )
+                                        )
+                                    )
+                                ),
+                                null
+                            );
+                            variablesList = variablesList.Add(variableDeclarator);
+                            fieldDeclaration = SyntaxFactory.FieldDeclaration(SyntaxFactory.VariableDeclaration(typeSyntax, variablesList));
+                            fieldDeclaration = fieldDeclaration.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+                            fieldDeclaration = fieldDeclaration.AddModifiers(SyntaxFactory.Token(SyntaxKind.FixedKeyword));
+                        }
+                        else
+                        {
+                            variablesList = variablesList.Add(SyntaxFactory.VariableDeclarator(name));
+                            fieldDeclaration = SyntaxFactory.FieldDeclaration(SyntaxFactory.VariableDeclaration(typeSyntax, variablesList));
+                            fieldDeclaration = fieldDeclaration.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+                        }
+
                         if (_class.IsUnion)
                         {
                             fieldDeclaration = fieldDeclaration.AddAttributeLists(SyntaxFactory.AttributeList(
