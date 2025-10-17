@@ -7,8 +7,8 @@ namespace FreeTypeSharp
     public unsafe struct FT_StreamDesc_
     {
         [FieldOffset(0)]
-        public CLong value;
+        public CLong @value;
         [FieldOffset(0)]
-        public void* pointer;
+        public void* @pointer;
     }
 }

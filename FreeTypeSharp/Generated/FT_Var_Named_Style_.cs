@@ -6,8 +6,8 @@ namespace FreeTypeSharp
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct FT_Var_Named_Style_
     {
-        public CLong* coords;
-        public uint strid;
-        public uint psid;
+        public CLong* @coords;
+        public uint @strid;
+        public uint @psid;
     }
 }

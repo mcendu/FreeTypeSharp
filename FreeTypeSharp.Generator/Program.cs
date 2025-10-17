@@ -430,9 +430,7 @@ namespace FreeTypeSharp.Generator
                             typeSyntax = GetTypeSyntax(context, field.Type, typeName, field.Name);
 
                         var variablesList = new SeparatedSyntaxList<VariableDeclaratorSyntax>();
-                        var name = field.Name;
-                        if (name == "internal" || name == "base" || name == "params" || name == "string")
-                            name = "_" + name;
+                        var name = $@"@{field.Name}";
                         FieldDeclarationSyntax fieldDeclaration;
 
                         if (field.Type is ArrayType arrayType && arrayType.SizeType == ArrayType.ArraySize.Constant)

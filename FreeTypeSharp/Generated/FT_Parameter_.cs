@@ -6,7 +6,7 @@ namespace FreeTypeSharp
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct FT_Parameter_
     {
-        public CULong tag;
-        public void* data;
+        public CULong @tag;
+        public void* @data;
     }
 }

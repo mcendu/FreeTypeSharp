@@ -6,8 +6,8 @@ namespace FreeTypeSharp
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct FT_PaintTranslate_
     {
-        public FT_Opaque_Paint_ paint;
-        public CLong dx;
-        public CLong dy;
+        public FT_Opaque_Paint_ @paint;
+        public CLong @dx;
+        public CLong @dy;
     }
 }

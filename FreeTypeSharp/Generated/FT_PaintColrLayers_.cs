@@ -6,6 +6,6 @@ namespace FreeTypeSharp
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct FT_PaintColrLayers_
     {
-        public FT_LayerIterator_ layer_iterator;
+        public FT_LayerIterator_ @layer_iterator;
     }
 }

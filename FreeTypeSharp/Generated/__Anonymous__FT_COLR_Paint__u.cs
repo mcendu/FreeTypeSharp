@@ -7,30 +7,30 @@ namespace FreeTypeSharp
     public unsafe struct __Anonymous__FT_COLR_Paint__u
     {
         [FieldOffset(0)]
-        public FT_PaintColrLayers_ colr_layers;
+        public FT_PaintColrLayers_ @colr_layers;
         [FieldOffset(0)]
-        public FT_PaintGlyph_ glyph;
+        public FT_PaintGlyph_ @glyph;
         [FieldOffset(0)]
-        public FT_PaintSolid_ solid;
+        public FT_PaintSolid_ @solid;
         [FieldOffset(0)]
-        public FT_PaintLinearGradient_ linear_gradient;
+        public FT_PaintLinearGradient_ @linear_gradient;
         [FieldOffset(0)]
-        public FT_PaintRadialGradient_ radial_gradient;
+        public FT_PaintRadialGradient_ @radial_gradient;
         [FieldOffset(0)]
-        public FT_PaintSweepGradient_ sweep_gradient;
+        public FT_PaintSweepGradient_ @sweep_gradient;
         [FieldOffset(0)]
-        public FT_PaintTransform_ transform;
+        public FT_PaintTransform_ @transform;
         [FieldOffset(0)]
-        public FT_PaintTranslate_ translate;
+        public FT_PaintTranslate_ @translate;
         [FieldOffset(0)]
-        public FT_PaintScale_ scale;
+        public FT_PaintScale_ @scale;
         [FieldOffset(0)]
-        public FT_PaintRotate_ rotate;
+        public FT_PaintRotate_ @rotate;
         [FieldOffset(0)]
-        public FT_PaintSkew_ skew;
+        public FT_PaintSkew_ @skew;
         [FieldOffset(0)]
-        public FT_PaintComposite_ composite;
+        public FT_PaintComposite_ @composite;
         [FieldOffset(0)]
-        public FT_PaintColrGlyph_ colr_glyph;
+        public FT_PaintColrGlyph_ @colr_glyph;
     }
 }

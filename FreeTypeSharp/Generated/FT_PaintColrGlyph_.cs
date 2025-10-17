@@ -6,6 +6,6 @@ namespace FreeTypeSharp
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct FT_PaintColrGlyph_
     {
-        public uint glyphID;
+        public uint @glyphID;
     }
 }
