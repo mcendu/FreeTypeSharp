@@ -383,12 +383,14 @@ namespace FreeTypeSharp.Generator
             if (classes.ContainsKey(typeName))
             {
                 var _class = classes[typeName];
+                var rootSyntax = Walker.TranslateStructToCompilationUnit(_class);
 
-                using (var fileWriter = new StreamWriter(File.OpenWrite($"{OutputDir}/{_class.Name}.cs")))
+                if (rootSyntax is not null)
                 {
-                    var rootSyntax = Walker.TranslateStructToCompilationUnit(_class);
-
-                    fileWriter.Write(rootSyntax.NormalizeWhitespace().ToFullString());
+                    using (var fileWriter = new StreamWriter(File.OpenWrite($"{OutputDir}/{_class.Name}.cs")))
+                    {
+                        fileWriter.Write(rootSyntax.NormalizeWhitespace().ToFullString());
+                    }
                 }
             }
             else if (enumerations.ContainsKey(typeName))

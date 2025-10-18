@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 
 namespace FreeTypeSharp
 {
+    /// <remarks>This struct is anonymous.</remarks>
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct @FT_Face_InternalRec_
     {
