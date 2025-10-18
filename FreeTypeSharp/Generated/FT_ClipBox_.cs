@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_ClipBox_
+    public unsafe struct FT_ClipBox_
     {
         public FT_Vector_ @bottom_left;
         public FT_Vector_ @top_left;

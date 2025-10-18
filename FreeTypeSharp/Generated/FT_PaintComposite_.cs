@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_PaintComposite_
+    public unsafe struct FT_PaintComposite_
     {
         public FT_Opaque_Paint_ @source_paint;
         public FT_Composite_Mode_ @composite_mode;

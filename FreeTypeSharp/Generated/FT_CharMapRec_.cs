@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_CharMapRec_
+    public unsafe struct FT_CharMapRec_
     {
         public FT_FaceRec_* @face;
         public FT_Encoding_ @encoding;

@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_Bitmap_Size_
+    public unsafe struct FT_Bitmap_Size_
     {
         public short @height;
         public short @width;

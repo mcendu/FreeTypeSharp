@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_SvgGlyphRec_
+    public unsafe struct FT_SvgGlyphRec_
     {
         public FT_GlyphRec_ @root;
         public byte* @svg_document;

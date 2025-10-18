@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_ColorStopIterator_
+    public unsafe struct FT_ColorStopIterator_
     {
         public uint @num_color_stops;
         public uint @current_color_stop;

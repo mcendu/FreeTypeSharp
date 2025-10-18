@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_OutlineGlyphRec_
+    public unsafe struct FT_OutlineGlyphRec_
     {
         public FT_GlyphRec_ @root;
         public FT_Outline_ @outline;

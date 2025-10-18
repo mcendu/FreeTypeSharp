@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_FaceRec_
+    public unsafe struct FT_FaceRec_
     {
         public CLong @num_faces;
         public CLong @face_index;

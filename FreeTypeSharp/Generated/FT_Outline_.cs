@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_Outline_
+    public unsafe struct FT_Outline_
     {
         public ushort @n_contours;
         public ushort @n_points;

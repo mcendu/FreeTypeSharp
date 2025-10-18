@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_PaintColrGlyph_
+    public unsafe struct FT_PaintColrGlyph_
     {
         public uint @glyphID;
     }

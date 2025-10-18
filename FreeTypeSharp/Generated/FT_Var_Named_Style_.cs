@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_Var_Named_Style_
+    public unsafe struct FT_Var_Named_Style_
     {
         public CLong* @coords;
         public uint @strid;

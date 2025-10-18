@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Explicit)]
-    public unsafe struct @FT_StreamDesc_
+    public unsafe struct FT_StreamDesc_
     {
         [FieldOffset(0)]
         public CLong @value;

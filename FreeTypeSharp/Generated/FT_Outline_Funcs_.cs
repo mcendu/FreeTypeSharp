@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_Outline_Funcs_
+    public unsafe struct FT_Outline_Funcs_
     {
         public delegate* unmanaged<FT_Vector_*, void*> * @move_to;
         public delegate* unmanaged<FT_Vector_*, void*> * @line_to;

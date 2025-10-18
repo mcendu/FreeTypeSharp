@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FTC_SBitRec_
+    public unsafe struct FTC_SBitRec_
     {
         public byte @width;
         public byte @height;

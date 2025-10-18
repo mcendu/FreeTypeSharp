@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_Raster_Funcs_
+    public unsafe struct FT_Raster_Funcs_
     {
         public FT_Glyph_Format_ @glyph_format;
         public delegate* unmanaged<void*, FT_RasterRec_**> * @raster_new;

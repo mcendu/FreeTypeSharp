@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_Var_Axis_
+    public unsafe struct FT_Var_Axis_
     {
         public byte* @name;
         public CLong @minimum;

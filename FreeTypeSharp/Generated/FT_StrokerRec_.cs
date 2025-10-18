@@ -7,7 +7,7 @@ namespace FreeTypeSharp
 {
     /// <remarks>This struct is anonymous.</remarks>
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_StrokerRec_
+    public unsafe struct FT_StrokerRec_
     {
     }
 }

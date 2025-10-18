@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_BitmapGlyphRec_
+    public unsafe struct FT_BitmapGlyphRec_
     {
         public FT_GlyphRec_ @root;
         public int @left;

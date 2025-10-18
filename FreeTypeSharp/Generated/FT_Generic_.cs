@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_Generic_
+    public unsafe struct FT_Generic_
     {
         public void* @data;
         public delegate* unmanaged<void*> * @finalizer;

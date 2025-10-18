@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_Color_
+    public unsafe struct FT_Color_
     {
         public byte @blue;
         public byte @green;

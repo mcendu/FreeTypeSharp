@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_SfntName_
+    public unsafe struct FT_SfntName_
     {
         public ushort @platform_id;
         public ushort @encoding_id;

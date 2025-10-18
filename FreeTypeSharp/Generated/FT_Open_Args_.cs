@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_Open_Args_
+    public unsafe struct FT_Open_Args_
     {
         public uint @flags;
         public byte* @memory_base;

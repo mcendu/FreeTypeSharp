@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_MemoryRec_
+    public unsafe struct FT_MemoryRec_
     {
         public void* @user;
         public delegate* unmanaged<FT_MemoryRec_*, CLong> * @alloc;

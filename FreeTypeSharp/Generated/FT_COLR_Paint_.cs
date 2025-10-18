@@ -6,12 +6,12 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_COLR_Paint_
+    public unsafe struct FT_COLR_Paint_
     {
         public FT_PaintFormat_ @format;
         public InnerStruct_u_0 @u;
         [StructLayout(LayoutKind.Explicit)]
-        public unsafe struct @InnerStruct_u_0
+        public unsafe struct InnerStruct_u_0
         {
             [FieldOffset(0)]
             public FT_PaintColrLayers_ @colr_layers;

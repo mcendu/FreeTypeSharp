@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_Parameter_
+    public unsafe struct FT_Parameter_
     {
         public CULong @tag;
         public void* @data;

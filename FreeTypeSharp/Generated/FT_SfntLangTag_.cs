@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_SfntLangTag_
+    public unsafe struct FT_SfntLangTag_
     {
         public byte* @string;
         public uint @string_len;

@@ -175,7 +175,7 @@ namespace FreeTypeSharp.Generator
             new SyntaxTokenList(
                 Token(SyntaxKind.PublicKeyword),
                 Token(SyntaxKind.UnsafeKeyword)),
-            Identifier($@"@{name}"),
+            Identifier(name),
             default,
             default,
             default,
@@ -206,8 +206,18 @@ namespace FreeTypeSharp.Generator
         default,
         new SyntaxList<UsingDirectiveSyntax>(new[]
         {
-          UsingDirective(IdentifierName("System.Runtime.InteropServices")),
-          UsingDirective(IdentifierName("System.Runtime.CompilerServices"))
+          UsingDirective(
+            QualifiedName(
+              QualifiedName(
+                IdentifierName("System"),
+                IdentifierName("Runtime")),
+              IdentifierName("InteropServices"))),
+          UsingDirective(
+            QualifiedName(
+              QualifiedName(
+                IdentifierName("System"),
+                IdentifierName("Runtime")),
+              IdentifierName("CompilerServices"))),
         }),
         default,
         new SyntaxList<MemberDeclarationSyntax>(new[]

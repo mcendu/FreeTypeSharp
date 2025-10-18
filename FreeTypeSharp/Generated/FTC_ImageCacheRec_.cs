@@ -7,7 +7,7 @@ namespace FreeTypeSharp
 {
     /// <remarks>This struct is anonymous.</remarks>
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FTC_ImageCacheRec_
+    public unsafe struct FTC_ImageCacheRec_
     {
     }
 }

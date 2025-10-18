@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_UnitVector_
+    public unsafe struct FT_UnitVector_
     {
         public short @x;
         public short @y;
