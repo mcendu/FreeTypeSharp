@@ -52,19 +52,5 @@
       <Link>runtimes\win-x64\native\freetype.dll</Link>
       <CopyToOutputDirectory Condition="'$(TargetFramework)' == 'net8.0'">PreserveNewest</CopyToOutputDirectory>
     </None>
-
-    <None Include="..\runtimes\FreeType2\linux-x64\libfreetype.so">
-      <Pack>true</Pack>
-      <PackagePath>runtimes\linux-x64\native\</PackagePath>
-      <Link>runtimes\linux-x64\native\libfreetype.so</Link>
-      <CopyToOutputDirectory Condition="'$(TargetFramework)' == 'net8.0'">PreserveNewest</CopyToOutputDirectory>
-    </None>
-
-    <None Include="..\runtimes\FreeType2\linux-x86\libfreetype.so">
-      <Pack>true</Pack>
-      <PackagePath>runtimes\linux-x86\native\</PackagePath>
-      <Link>runtimes\linux-x86\native\libfreetype.so</Link>
-      <CopyToOutputDirectory Condition="'$(TargetFramework)' == 'net8.0'">PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 </Project>
