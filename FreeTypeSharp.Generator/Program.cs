@@ -7,7 +7,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using CppSharp.AST.Extensions;
 
 namespace FreeTypeSharp.Generator
 {
@@ -115,6 +114,21 @@ namespace FreeTypeSharp.Generator
             var context = ClangParser.ConvertASTContext(parserOptions.ASTContext);
 
             InitTypes(context);
+
+            foreach (var (name, _) in classes)
+            {
+                RegisterType(context, name);
+            }
+
+            foreach (var (name, _) in enumerations)
+            {
+                RegisterType(context, name);
+            }
+
+            foreach (var (name, _) in predefinedEnumerations)
+            {
+                RegisterType(context, name);
+            }
 
             var namespaceNameSyntax = SyntaxFactory.IdentifierName(OutNamespace);
 
@@ -372,105 +386,7 @@ namespace FreeTypeSharp.Generator
 
                 using (var fileWriter = new StreamWriter(File.OpenWrite($"{OutputDir}/{_class.Name}.cs")))
                 {
-                    var namespaceNameSyntax = SyntaxFactory.IdentifierName(OutNamespace);
-
-                    var rootSyntax = SyntaxFactory.NamespaceDeclaration(
-                        namespaceNameSyntax,
-                        default,
-                        new SyntaxList<UsingDirectiveSyntax>().Add(SyntaxFactory.UsingDirective(SyntaxFactory.IdentifierName("System.Runtime.InteropServices")))
-                            .Add(SyntaxFactory.UsingDirective(SyntaxFactory.IdentifierName("System"))),
-                        default);
-                    var layoutKind = _class.IsUnion ? "LayoutKind.Explicit" : "LayoutKind.Sequential";
-                    var attribute = SyntaxFactory.Attribute(
-                                  SyntaxFactory.IdentifierName("StructLayout"),
-                                  SyntaxFactory.AttributeArgumentList(
-                                      new SeparatedSyntaxList<AttributeArgumentSyntax>().Add(
-                                          SyntaxFactory.AttributeArgument(SyntaxFactory.ParseExpression(layoutKind)))));
-                    var unionFieldAttribute = SyntaxFactory.Attribute(
-                        SyntaxFactory.IdentifierName("FieldOffset"),
-                        SyntaxFactory.AttributeArgumentList(
-                            new SeparatedSyntaxList<AttributeArgumentSyntax>().Add(
-                                SyntaxFactory.AttributeArgument(
-                                    SyntaxFactory.LiteralExpression(SyntaxKind.NumericLiteralExpression, SyntaxFactory.Literal(0))
-                                )
-                            )
-                        )
-                    );
-
-                    var _struct = SyntaxFactory.StructDeclaration(_class.Name);
-                    _struct = _struct.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
-                    _struct = _struct.AddModifiers(SyntaxFactory.Token(SyntaxKind.UnsafeKeyword));
-                    _struct = _struct.AddAttributeLists(SyntaxFactory.AttributeList(new SeparatedSyntaxList<AttributeSyntax>().Add(attribute)));
-
-                    foreach (var field in _class.Fields)
-                    {
-                        // skip structs with peculiar properties
-                        switch (typeName)
-                        {
-                            // FT_Multi_Master_: fixed-size array of compound type
-                            case "FT_Multi_Master_":
-                                continue;
-                        }
-
-                        TypeSyntax typeSyntax;
-
-                        if (typeOverrides.ContainsKey(field.Name))
-                        {
-                            typeSyntax = GetTypeSyntax(context, new TagType()
-                            {
-                                Declaration = typeOverrides[field.Name]
-                            });
-                            // These fields types should not be override
-                            if (field.Name == "face_flags" || field.Name == "style_flags")
-                            {
-                                typeSyntax = GetTypeSyntax(context, field.Type, typeName, field.Name);
-                            }
-                        }
-                        else
-                            typeSyntax = GetTypeSyntax(context, field.Type, typeName, field.Name);
-
-                        var variablesList = new SeparatedSyntaxList<VariableDeclaratorSyntax>();
-                        var name = $@"@{field.Name}";
-                        FieldDeclarationSyntax fieldDeclaration;
-
-                        if (field.Type is ArrayType arrayType && arrayType.SizeType == ArrayType.ArraySize.Constant)
-                        {
-                            var variableDeclarator = SyntaxFactory.VariableDeclarator(
-                                SyntaxFactory.Identifier(name),
-                                SyntaxFactory.BracketedArgumentList(
-                                    new SeparatedSyntaxList<ArgumentSyntax>().Add(
-                                        SyntaxFactory.Argument(
-                                            SyntaxFactory.LiteralExpression(
-                                                SyntaxKind.NumericLiteralExpression,
-                                                SyntaxFactory.Literal((int)arrayType.Size)
-                                            )
-                                        )
-                                    )
-                                ),
-                                null
-                            );
-                            variablesList = variablesList.Add(variableDeclarator);
-                            fieldDeclaration = SyntaxFactory.FieldDeclaration(SyntaxFactory.VariableDeclaration(typeSyntax, variablesList));
-                            fieldDeclaration = fieldDeclaration.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
-                            fieldDeclaration = fieldDeclaration.AddModifiers(SyntaxFactory.Token(SyntaxKind.FixedKeyword));
-                        }
-                        else
-                        {
-                            variablesList = variablesList.Add(SyntaxFactory.VariableDeclarator(name));
-                            fieldDeclaration = SyntaxFactory.FieldDeclaration(SyntaxFactory.VariableDeclaration(typeSyntax, variablesList));
-                            fieldDeclaration = fieldDeclaration.AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
-                        }
-
-                        if (_class.IsUnion)
-                        {
-                            fieldDeclaration = fieldDeclaration.AddAttributeLists(SyntaxFactory.AttributeList(
-                                new SeparatedSyntaxList<AttributeSyntax>().Add(unionFieldAttribute)
-                            ));
-                        }
-                        _struct = _struct.AddMembers(fieldDeclaration);
-                    }
-
-                    rootSyntax = rootSyntax.AddMembers(_struct);
+                    var rootSyntax = Walker.TranslateStructToCompilationUnit(_class);
 
                     fileWriter.Write(rootSyntax.NormalizeWhitespace().ToFullString());
                 }

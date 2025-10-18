@@ -6,9 +6,9 @@ using System.Runtime.CompilerServices;
 namespace FreeTypeSharp
 {
     [StructLayout(LayoutKind.Sequential)]
-    public unsafe struct @FT_PaintGlyph_
+    public unsafe struct @FT_UnitVector_
     {
-        public FT_Opaque_Paint_ @paint;
-        public uint @glyphID;
+        public short @x;
+        public short @y;
     }
 }
