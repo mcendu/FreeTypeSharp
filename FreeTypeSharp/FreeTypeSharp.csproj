@@ -1,11 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('linux'))">
+  <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('windows'))">
-    <TargetFrameworks>net8.0;net8.0-android</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup>
