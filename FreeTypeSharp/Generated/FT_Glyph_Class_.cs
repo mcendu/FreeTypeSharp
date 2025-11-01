@@ -10,11 +10,11 @@ namespace FreeTypeSharp
     {
         public CLong @glyph_size;
         public FT_Glyph_Format_ @glyph_format;
-        public delegate* unmanaged<FT_GlyphRec_*, FT_GlyphSlotRec_*, FT_Error> * @glyph_init;
-        public delegate* unmanaged<FT_GlyphRec_*, void> * @glyph_done;
-        public delegate* unmanaged<FT_GlyphRec_*, FT_GlyphRec_*, FT_Error> * @glyph_copy;
-        public delegate* unmanaged<FT_GlyphRec_*, FT_Matrix_*, FT_Vector_*, void> * @glyph_transform;
-        public delegate* unmanaged<FT_GlyphRec_*, FT_BBox_*, void> * @glyph_bbox;
-        public delegate* unmanaged<FT_GlyphRec_*, FT_GlyphSlotRec_*, FT_Error> * @glyph_prepare;
+        public delegate* unmanaged<FT_GlyphRec_*, FT_GlyphSlotRec_*, FT_Error> @glyph_init;
+        public delegate* unmanaged<FT_GlyphRec_*, void> @glyph_done;
+        public delegate* unmanaged<FT_GlyphRec_*, FT_GlyphRec_*, FT_Error> @glyph_copy;
+        public delegate* unmanaged<FT_GlyphRec_*, FT_Matrix_*, FT_Vector_*, void> @glyph_transform;
+        public delegate* unmanaged<FT_GlyphRec_*, FT_BBox_*, void> @glyph_bbox;
+        public delegate* unmanaged<FT_GlyphRec_*, FT_GlyphSlotRec_*, FT_Error> @glyph_prepare;
     }
 }

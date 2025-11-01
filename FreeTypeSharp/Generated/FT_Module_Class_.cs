@@ -14,8 +14,8 @@ namespace FreeTypeSharp
         public CLong @module_version;
         public CLong @module_requires;
         public void* @module_interface;
-        public delegate* unmanaged<FT_ModuleRec_*, FT_Error> * @module_init;
-        public delegate* unmanaged<FT_ModuleRec_*, void> * @module_done;
-        public delegate* unmanaged<FT_ModuleRec_*, byte*, void*> * @get_interface;
+        public delegate* unmanaged<FT_ModuleRec_*, FT_Error> @module_init;
+        public delegate* unmanaged<FT_ModuleRec_*, void> @module_done;
+        public delegate* unmanaged<FT_ModuleRec_*, byte*, void*> @get_interface;
     }
 }

@@ -8,10 +8,10 @@ namespace FreeTypeSharp
     [StructLayout(LayoutKind.Sequential)]
     public unsafe struct FT_Outline_Funcs_
     {
-        public delegate* unmanaged<FT_Vector_*, void*, int> * @move_to;
-        public delegate* unmanaged<FT_Vector_*, void*, int> * @line_to;
-        public delegate* unmanaged<FT_Vector_*, FT_Vector_*, void*, int> * @conic_to;
-        public delegate* unmanaged<FT_Vector_*, FT_Vector_*, FT_Vector_*, void*, int> * @cubic_to;
+        public delegate* unmanaged<FT_Vector_*, void*, int> @move_to;
+        public delegate* unmanaged<FT_Vector_*, void*, int> @line_to;
+        public delegate* unmanaged<FT_Vector_*, FT_Vector_*, void*, int> @conic_to;
+        public delegate* unmanaged<FT_Vector_*, FT_Vector_*, FT_Vector_*, void*, int> @cubic_to;
         public int @shift;
         public CLong @delta;
     }

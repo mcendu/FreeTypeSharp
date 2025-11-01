@@ -11,10 +11,10 @@ namespace FreeTypeSharp
         public FT_Bitmap_* @target;
         public void* @source;
         public int @flags;
-        public delegate* unmanaged<int, int, FT_Span_*, void*, void> * @gray_spans;
-        public delegate* unmanaged<int, int, FT_Span_*, void*, void> * @black_spans;
-        public delegate* unmanaged<int, int, void*, int> * @bit_test;
-        public delegate* unmanaged<int, int, void*, void> * @bit_set;
+        public delegate* unmanaged<int, int, FT_Span_*, void*, void> @gray_spans;
+        public delegate* unmanaged<int, int, FT_Span_*, void*, void> @black_spans;
+        public delegate* unmanaged<int, int, void*, int> @bit_test;
+        public delegate* unmanaged<int, int, void*, void> @bit_set;
         public void* @user;
         public FT_BBox_ @clip_box;
     }

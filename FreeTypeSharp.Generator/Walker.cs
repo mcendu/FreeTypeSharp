@@ -47,6 +47,26 @@ namespace FreeTypeSharp.Generator
 
       if (type is PointerType pointerType)
       {
+        if (pointerType.Pointee is FunctionType functionType)
+        {
+          return FunctionPointerType(
+            FunctionPointerCallingConvention(
+              Token(SyntaxKind.UnmanagedKeyword)),
+              FunctionPointerParameterList().AddParameters(
+                functionType.Parameters
+                  .Select((param) => FunctionPointerParameter(
+                    translateFieldType(
+                      param.Type,
+                      $@"{field}_{nestLevel}_{param.DefinitionOrder}",
+                      0)))
+                  .Append(FunctionPointerParameter(
+                    translateFieldType(
+                      functionType.ReturnType.Type,
+                      $@"{field}_{nestLevel}_return",
+                      0)))
+                  .ToArray()));
+        }
+
         return PointerType(translateFieldType(pointerType.Pointee, field, nestLevel + 1));
       }
 
@@ -72,26 +92,6 @@ namespace FreeTypeSharp.Generator
       {
         // A nested struct with an InlineArrayAttribute is generated.
         return IdentifierName(nestedStructName(field, nestLevel));
-      }
-
-      if (type is FunctionType functionType)
-      {
-        return FunctionPointerType(
-          FunctionPointerCallingConvention(
-            Token(SyntaxKind.UnmanagedKeyword)),
-            FunctionPointerParameterList().AddParameters(
-              functionType.Parameters
-                .Select((param) => FunctionPointerParameter(
-                  translateFieldType(
-                    param.Type,
-                    $@"{field}_{nestLevel}_{param.DefinitionOrder}",
-                    0)))
-                .Append(FunctionPointerParameter(
-                  translateFieldType(
-                    functionType.ReturnType.Type,
-                    $@"{field}_{nestLevel}_return",
-                    0)))
-                .ToArray()));
       }
 
       throw new NotSupportedException();

@@ -9,10 +9,10 @@ namespace FreeTypeSharp
     public unsafe struct FT_Raster_Funcs_
     {
         public FT_Glyph_Format_ @glyph_format;
-        public delegate* unmanaged<void*, FT_RasterRec_**, int> * @raster_new;
-        public delegate* unmanaged<FT_RasterRec_*, byte*, CULong, void> * @raster_reset;
-        public delegate* unmanaged<FT_RasterRec_*, CULong, void*, int> * @raster_set_mode;
-        public delegate* unmanaged<FT_RasterRec_*, FT_Raster_Params_*, int> * @raster_render;
-        public delegate* unmanaged<FT_RasterRec_*, void> * @raster_done;
+        public delegate* unmanaged<void*, FT_RasterRec_**, int> @raster_new;
+        public delegate* unmanaged<FT_RasterRec_*, byte*, CULong, void> @raster_reset;
+        public delegate* unmanaged<FT_RasterRec_*, CULong, void*, int> @raster_set_mode;
+        public delegate* unmanaged<FT_RasterRec_*, FT_Raster_Params_*, int> @raster_render;
+        public delegate* unmanaged<FT_RasterRec_*, void> @raster_done;
     }
 }

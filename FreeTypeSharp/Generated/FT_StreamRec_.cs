@@ -13,8 +13,8 @@ namespace FreeTypeSharp
         public CULong @pos;
         public FT_StreamDesc_ @descriptor;
         public FT_StreamDesc_ @pathname;
-        public delegate* unmanaged<FT_StreamRec_*, CULong, byte*, CULong, CULong> * @read;
-        public delegate* unmanaged<FT_StreamRec_*, void> * @close;
+        public delegate* unmanaged<FT_StreamRec_*, CULong, byte*, CULong, CULong> @read;
+        public delegate* unmanaged<FT_StreamRec_*, void> @close;
         public FT_MemoryRec_* @memory;
         public byte* @cursor;
         public byte* @limit;
