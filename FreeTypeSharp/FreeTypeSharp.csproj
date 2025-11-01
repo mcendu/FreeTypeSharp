@@ -17,7 +17,7 @@
     <CheckEolWorkloads>false</CheckEolWorkloads>
     <RootNamespace>FreeTypeSharp</RootNamespace>
     <AssemblyName>FreeTypeSharp</AssemblyName>
-    <VersionPrefix>4.1.0</VersionPrefix>
+    <VersionPrefix>4.1.1</VersionPrefix>
     <VersionSuffix></VersionSuffix>
     <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
