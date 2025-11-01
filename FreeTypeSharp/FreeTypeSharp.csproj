@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('osx'))">
-    <TargetFrameworks>net8.0-ios17.2;net8.0-tvos17.1</TargetFrameworks>
+    <TargetFrameworks>net9.0-ios;net9.0-tvos</TargetFrameworks>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
@@ -14,7 +14,6 @@
 
   <PropertyGroup>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <CheckEolWorkloads>false</CheckEolWorkloads>
     <RootNamespace>FreeTypeSharp</RootNamespace>
     <AssemblyName>FreeTypeSharp</AssemblyName>
     <VersionPrefix>4.1.1</VersionPrefix>
