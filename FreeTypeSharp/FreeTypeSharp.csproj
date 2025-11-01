@@ -14,6 +14,7 @@
 
   <PropertyGroup>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CheckEolWorkloads>false</CheckEolWorkloads>
     <RootNamespace>FreeTypeSharp</RootNamespace>
     <AssemblyName>FreeTypeSharp</AssemblyName>
     <VersionPrefix>4.1.0</VersionPrefix>
