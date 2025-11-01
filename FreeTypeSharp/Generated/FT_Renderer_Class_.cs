@@ -10,10 +10,10 @@ namespace FreeTypeSharp
     {
         public FT_Module_Class_ @root;
         public FT_Glyph_Format_ @glyph_format;
-        public delegate* unmanaged<FT_RendererRec_*, FT_GlyphSlotRec_*, FT_Render_Mode_, FT_Vector_*> * @render_glyph;
-        public delegate* unmanaged<FT_RendererRec_*, FT_GlyphSlotRec_*, FT_Matrix_*, FT_Vector_*> * @transform_glyph;
-        public delegate* unmanaged<FT_RendererRec_*, FT_GlyphSlotRec_*, FT_BBox_*> * @get_glyph_cbox;
-        public delegate* unmanaged<FT_RendererRec_*, CULong, void*> * @set_mode;
+        public delegate* unmanaged<FT_RendererRec_*, FT_GlyphSlotRec_*, FT_Render_Mode_, FT_Vector_*, FT_Error> * @render_glyph;
+        public delegate* unmanaged<FT_RendererRec_*, FT_GlyphSlotRec_*, FT_Matrix_*, FT_Vector_*, FT_Error> * @transform_glyph;
+        public delegate* unmanaged<FT_RendererRec_*, FT_GlyphSlotRec_*, FT_BBox_*, void> * @get_glyph_cbox;
+        public delegate* unmanaged<FT_RendererRec_*, CULong, void*, FT_Error> * @set_mode;
         public FT_Raster_Funcs_* @raster_class;
     }
 }

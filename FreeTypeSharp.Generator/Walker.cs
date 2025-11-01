@@ -86,6 +86,11 @@ namespace FreeTypeSharp.Generator
                     param.Type,
                     $@"{field}_{nestLevel}_{param.DefinitionOrder}",
                     0)))
+                .Append(FunctionPointerParameter(
+                  translateFieldType(
+                    functionType.ReturnType.Type,
+                    $@"{field}_{nestLevel}_return",
+                    0)))
                 .ToArray()));
       }
 
